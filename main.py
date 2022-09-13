@@ -19,8 +19,9 @@ if __name__ == '__main__':
     env = Env(building, job, machines, day)
 
     solvers = [
-        BSKnapsackSolver,
-        GreedySolver,
+        # BSKnapsackSolver,
+        # GreedySolver,
+        MIPSolver,
     ]
 
     for solver in solvers:
