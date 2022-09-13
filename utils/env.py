@@ -4,7 +4,7 @@ from collections import defaultdict
 
 
 class Env:
-    def __init__(self, building, job_list, price_list, machines, day):
+    def __init__(self, building, job_list, machines, day):
         self.day = day
         self.S = defaultdict(lambda: defaultdict(list))
         self.n_machines = defaultdict(lambda: defaultdict(int))
@@ -12,7 +12,6 @@ class Env:
 
         # Initialize machines in each house with their jobs
         m_counter = 0
-        j_counter = 0
         for apt in building:
             house = apt['house']  # Get the house number
             tasks = apt['tasks']  # Get the tasks
@@ -38,19 +37,16 @@ class Env:
                 # Uniformly allocate the jobs to the machines
                 # [-] Single job cannot be allocated to multiple machines
                 for i in range(n_j):
-                    self.S[house][_id][alloc].add_job(job_list[_id], j_counter)
+                    self.S[house][_id][alloc].add_job(
+                        job_list[_id], (house, _id, i))
                     alloc = (alloc + 1) % n_m
-                    j_counter += 1
 
                 # Update the number of machines and jobs
                 self.n_machines[house][_id] = n_m
                 self.n_jobs[house][_id] = n_j
 
-        # Initialize the price list
-        self.pricer = price_list
-
     def __str__(self):
         return json.dumps(self.S, indent=2, default=vars)
 
-    def reset(self, building, job_list, price_list, machines, day):
-        self.__init__(building, job_list, price_list, machines, day)
+    def reset(self, building, job_list, machines, day):
+        self.__init__(building, job_list, machines, day)

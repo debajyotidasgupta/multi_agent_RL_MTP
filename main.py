@@ -12,19 +12,20 @@ if __name__ == '__main__':
     machines = config['machines']
     price_list = config['price_list']
     job_list = config['job_list']
-    day = config['day'] / step
+    day = config['day'] // step
 
     price = Price(price_list, step)
     job = Job(job_list, step)
-    env = Env(building, job, price, machines, day)
+    env = Env(building, job, machines, day)
 
     solvers = [
-        # BSKnapsackSolver,
+        BSKnapsackSolver,
         GreedySolver,
     ]
 
     for solver in solvers:
-        env.reset(building, job, price, machines, day)
-        solver = solver(env)
+        env.reset(building, job, machines, day)
+        solver = solver(env, price)
         solver.solve()
         print(solver)
+        # print(solver.scehdule())

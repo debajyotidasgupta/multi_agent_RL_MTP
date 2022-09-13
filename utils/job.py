@@ -8,7 +8,7 @@ class Job:
             name = job['id']
             self.job_list[name] = []
             for cycle in job['cycles']:
-                duration = cycle['duration'] / step
+                duration = cycle['duration'] // step
                 power = cycle['power']
                 self.job_list[name].append((duration, power))
 

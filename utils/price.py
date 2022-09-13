@@ -41,3 +41,8 @@ class Price:
 
     def __str__(self):
         return json.dumps(self.price_list, indent=4)
+
+    def cost_to_power(self, t, cost):
+        # cost is in cents
+        # returns power in watts
+        return cost / self.get_price(t)
