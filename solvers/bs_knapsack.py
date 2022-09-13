@@ -9,8 +9,7 @@ class BSKnapsackSolver(Solver):
 
         # Create the solver.
         self.solver = pywrapknapsack_solver.KnapsackSolver(
-            pywrapknapsack_solver.KnapsackSolver.
-            KNAPSACK_MULTIDIMENSION_BRANCH_AND_BOUND_SOLVER, 'CostBoundKnapsack')
+            pywrapknapsack_solver.KnapsackSolver.KNAPSACK_MULTIDIMENSION_BRANCH_AND_BOUND_SOLVER, 'BSKnapsackSolver')
 
     def knapsack(self, S, T, cost_cap):
         # Create the solver environment
@@ -98,7 +97,7 @@ class BSKnapsackSolver(Solver):
         low = 0
         high = 1000
 
-        EPS = 1e-3
+        EPS = 1
 
         while high - low > EPS:
             mid = (low + high) / 2

@@ -39,15 +39,15 @@ class Solver:
     def scehdule(self):
         output = f'\n\
             SCHEDULE:\n\
-                ┌─────────────────┬─────────────────┬─────────────────┬─────────────────┐\n\
-                │    JOB ID       │ MACHINE ID      │ START TIME      │ END TIME        │\n\
-                ├─────────────────┼─────────────────┼─────────────────┼─────────────────┤\
+                ┌──────────────────┬─────────────────┬─────────────────┬─────────────────┐\n\
+                │    JOB ID        │ MACHINE ID      │ START TIME      │ END TIME        │\n\
+                ├──────────────────┼─────────────────┼─────────────────┼─────────────────┤\
         '
         for schedule in self.schedule_list:
             output += f'\n\
-                │ {str(schedule.job_id):>15} │ {schedule.machine_id:>15} │ {schedule.start_time:>15} │ {schedule.end_time:>15} │\
+                │ {str(schedule.job_id):<16} │ {schedule.machine_id:>15} │ {schedule.start_time:>15} │ {schedule.end_time:>15} │\
             '
         output += f'\n\
-                └─────────────────┴─────────────────┴─────────────────┴─────────────────┘\n\
+                └──────────────────┴─────────────────┴─────────────────┴─────────────────┘\n\
         '
         return output
