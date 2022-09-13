@@ -63,30 +63,30 @@ building:
         machine: 6
         job: 10
       - id: MW
-        machine: 1
-        job: 2
+        machine: 5
+        job: 16
       - id: AC
-        machine: 2
-        job: 3
+        machine: 1
+        job: 4
   - house: 1
     tasks:
       - id: WM
         machine: 2
         job: 3
       - id: MW
-        machine: 1
-        job: 2
+        machine: 4
+        job: 11
       - id: AC
         machine: 1
         job: 1
   - house: 2
     tasks:
       - id: WM
-        machine: 1
-        job: 2
+        machine: 10
+        job: 4
       - id: MW
         machine: 2
-        job: 2
+        job: 5
       - id: AC
-        machine: 1
-        job: 1
+        machine: 5
+        job: 12

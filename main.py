@@ -28,4 +28,4 @@ if __name__ == '__main__':
         solver = solver(env, price)
         solver.solve()
         print(solver)
-        # print(solver.scehdule())
+        print(solver.scehdule())
