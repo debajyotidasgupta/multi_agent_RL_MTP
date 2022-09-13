@@ -60,8 +60,8 @@ building:
   - house: 0
     tasks:
       - id: WM
-        machine: 3
-        job: 5
+        machine: 6
+        job: 10
       - id: MW
         machine: 1
         job: 2

@@ -98,12 +98,16 @@ class BSKnapsackSolver(Solver):
         low = 0
         high = 1000
 
-        while high - low > 1:
+        EPS = 1e-8
+
+        while high - low > EPS:
             mid = (low + high) / 2
             if self.check(mid):
                 high = mid
             else:
-                low = mid + 1
+                low = mid
 
+        if round(low) - low < EPS:
+            low = round(low)
         print('            OPTIMAL CPUT: ', low)
         _ = self.check(low)

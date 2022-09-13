@@ -24,20 +24,16 @@ class Solver:
         raise NotImplementedError()
 
     def __str__(self):
-        # output = f'\n\
-        #     SOLVER: {self.name}\n\
-        #     COST: {self.cost}\n\
-        #     JOBS SCHEDULED: {len(self.schedule_list)} / {self.total_jobs}\n\
-        # '
         output = f'\n\
              ┌──────────────────────────────────────────────────────────────────────────────────────────────────────┐\n\
              │ SOLVER: {self.name: <92} │\n\
              ├──────────────────────────────────────────────────────────────────────────────────────────────────────┤\n\
              │ COST: {self.cost: <94} │\n\
              ├──────────────────────────────────────────────────────────────────────────────────────────────────────┤\n\
-             │ JOBS SCHEDULED: {len(self.schedule_list)} / {self.total_jobs: <79} │\n\
+             │ JOBS SCHEDULED: {len(self.schedule_list): >2}/{self.total_jobs: <2} ({len(self.schedule_list)/self.total_jobs*100: 3.2f}% {")": <68} │\n\
              └──────────────────────────────────────────────────────────────────────────────────────────────────────┘\n\
-        '
+             '
+
         return output
 
     def scehdule(self):
