@@ -262,3 +262,33 @@ class SmartApplEnv(gym.Env):
             ax[i].imshow(self._state[:, :, i])
             ax[i].grid(False)
         st.pyplot(fig)
+
+class SmartHouse(gym.Env):
+    def __init__(self, args, data):
+        self.args = args
+        self.data = data
+        self.action_space = spaces.Discrete(2)
+        self.observation_space = spaces.Box(low=0, high=1, shape=(1, 1, 1))
+        self.reset()
+
+    def reset(self):
+        self._state = np.zeros((1, 1, 1))
+        self._episode_ended = False
+        return self._state
+
+    def step(self, action):
+        if self._episode_ended:
+            return self.reset()
+
+        reward, done, info = 0, False, {}
+        self._state = np.zeros((1, 1, 1))
+        self._episode_ended = done
+        info = {}
+
+        return self._state, reward, self._episode_ended, info
+
+    def render(self, args):
+        fig, ax = plt.subplots(1, 1, figsize=(5, 5))
+        ax.imshow(self._state[:, :, 0])
+        ax.grid(False)
+        st.pyplot(fig)

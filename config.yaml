@@ -1,0 +1,92 @@
+machines:
+  - id: WM
+    name: Washing Machine
+  - id: MW
+    name: Microwave
+  - id: AC
+    name: Air Conditioner
+
+step: 15
+
+day: 1500
+
+price_list:
+  - from: 0
+    to: 375
+    cost: 2.5
+  - from: 375
+    to: 750
+    cost: 5
+  - from: 750
+    to: 1125
+    cost: 1
+  - from: 1125
+    to: 1500
+    cost: 3.5
+
+job_list:
+  - id: WM
+    cycles:
+      - step: 1
+        name: Wash
+        duration: 45
+        power: 100
+      - step: 2
+        name: Rinse
+        duration: 30
+        power: 70
+      - step: 3
+        name: Spin
+        duration: 30
+        power: 50
+      - step: 4
+        name: Drain
+        duration: 15
+        power: 0
+  - id: MW
+    cycles:
+      - step: 1
+        name: Cook
+        duration: 30
+        power: 60
+  - id: AC
+    cycles:
+      - step: 1
+        name: Cool
+        duration: 15
+        power: 120
+
+building:
+  - house: 0
+    tasks:
+      - id: WM
+        machine: 3
+        job: 5
+      - id: MW
+        machine: 1
+        job: 2
+      - id: AC
+        machine: 2
+        job: 3
+  - house: 1
+    tasks:
+      - id: WM
+        machine: 2
+        job: 3
+      - id: MW
+        machine: 1
+        job: 2
+      - id: AC
+        machine: 1
+        job: 1
+  - house: 2
+    tasks:
+      - id: WM
+        machine: 1
+        job: 2
+      - id: MW
+        machine: 2
+        job: 2
+      - id: AC
+        machine: 1
+        job: 1
