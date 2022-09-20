@@ -20,8 +20,8 @@ if __name__ == '__main__':
 
     solvers = [
         BSKnapsackSolver,
-        GreedySolver,
-        MIPSolver,
+        # GreedySolver,
+        # MIPSolver,
     ]
 
     for solver in solvers:
@@ -30,3 +30,4 @@ if __name__ == '__main__':
         solver.solve()
         print(solver)
         # print(solver.scehdule())
+        solver.visualize()

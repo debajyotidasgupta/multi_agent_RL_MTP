@@ -22,7 +22,7 @@ class MIPSolver(Solver):
                         _, _, n_job, n_op = job_id
                         start_time = f'S_{house}_{machine_id}_{n_job}_{n_op}'
                         self.variables[start_time] = self.solver.IntVar(
-                            0, T-duration+1, start_time)
+                            0, T-duration, start_time)
 
                         for i in range(len(self.price)):
                             time_decider = f'T_{house}_{machine_id}_{n_job}_{n_op}_{i}'
@@ -85,7 +85,7 @@ class MIPSolver(Solver):
         self.add_constraints()
 
         status = self.solver.Solve()
-        power_usage = [0 for _ in range(self.env.day+1)]
+        power_usage = [0 for _ in range(self.env.day)]
 
         if status == pywraplp.Solver.OPTIMAL:
             for house in self.env.S:
@@ -100,7 +100,7 @@ class MIPSolver(Solver):
                                 self.variables[start_time_variable].solution_value())
 
                             self.schedule_list.append(
-                                Schedule(job_id, machine_id, start_time, start_time + duration - 1))
+                                Schedule(job_id, machine_id, start_time, start_time + duration))
 
                             for i in range(start_time, start_time + duration):
                                 power_usage[i] += power

@@ -9,6 +9,7 @@ class Env:
         self.S = defaultdict(lambda: defaultdict(list))
         self.n_machines = defaultdict(lambda: defaultdict(int))
         self.n_jobs = defaultdict(lambda: defaultdict(int))
+        self.m_alloc = defaultdict(lambda: defaultdict(int))
 
         # Initialize machines in each house with their jobs
         m_counter = 0
@@ -39,6 +40,7 @@ class Env:
                 for i in range(n_j):
                     self.S[house][_id][alloc].add_job(
                         job_list[_id], (house, _id, i))
+                    self.m_alloc[(house, i)] = self.S[house][_id][alloc].uuid
                     alloc = (alloc + 1) % n_m
 
                 # Update the number of machines and jobs

@@ -1,3 +1,8 @@
+import docplex.cp.utils_visu as visu
+from collections import defaultdict
+from matplotlib import rcParams
+
+
 class Schedule:
     def __init__(self, job_id, machine_id, start_time, end_time):
         self.job_id = job_id
@@ -51,3 +56,24 @@ class Solver:
                 └──────────────────┴─────────────────┴─────────────────┴─────────────────┘\n\
         '
         return output
+
+    def visualize(self):
+        # figure size in inches
+        rcParams['figure.figsize'] = 15, 7
+
+        visu.timeline(f'Schedule {self.name}', 0, self.env.day)
+
+        machines = defaultdict(list)
+        for schedule in self.schedule_list:
+            house, mc_tp, job, op = schedule.job_id
+            machines[f'{mc_tp}_{house}_{self.env.m_alloc[(house, job)]}'].append(
+                (f'{job}_{op}', schedule.start_time, schedule.end_time))
+
+        for i, machine_id in enumerate(machines):
+            visu.sequence(name=f'{machine_id}')
+
+            color = i
+            for job_id, start_time, end_time in machines[machine_id]:
+                visu.interval(start_time, end_time, color)
+
+        visu.show()
