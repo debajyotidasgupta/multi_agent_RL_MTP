@@ -19,8 +19,8 @@ if __name__ == '__main__':
     env = Env(building, job, machines, day)
 
     solvers = [
-        # BSKnapsackSolver,
-        # GreedySolver,
+        BSKnapsackSolver,
+        GreedySolver,
         MIPSolver,
     ]
 
@@ -29,4 +29,4 @@ if __name__ == '__main__':
         solver = solver(env, price)
         solver.solve()
         print(solver)
-        print(solver.scehdule())
+        # print(solver.scehdule())
