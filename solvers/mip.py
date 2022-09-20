@@ -100,7 +100,7 @@ class MIPSolver(Solver):
                                 self.variables[start_time_variable].solution_value())
 
                             self.schedule_list.append(
-                                Schedule(job_id, machine_id, start_time, start_time + duration))
+                                Schedule(job_id, machine_id, start_time, start_time + duration - 1))
 
                             for i in range(start_time, start_time + duration):
                                 power_usage[i] += power
