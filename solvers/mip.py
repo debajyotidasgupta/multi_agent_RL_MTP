@@ -27,15 +27,27 @@ class MIPSolver(Solver):
                         if debug:
                             print(f'0 <= {start_time} <= {T-duration}')
 
+                        time_decider_list = []
+                        debug_time_decider_list = []
+
                         for i in range(len(self.price)):
                             time_decider = f'T_{house}_{machine_id}_{n_job}_{n_op}_{i}'
                             self.variables[time_decider] = self.solver.IntVar(
                                 0, 1, time_decider)
 
+                            time_decider_list.append(
+                                self.variables[time_decider])
+                            debug_time_decider_list.append(time_decider)
+
                             if debug:
                                 print(f'0 <= {time_decider} <= 1')
 
-                        print()
+                        self.solver.Add(
+                            self.solver.Sum(time_decider_list) == 1)
+
+                        if debug:
+                            print(f'{" + ".join(debug_time_decider_list)} = 1')
+                            print()
 
     def add_constraints(self, debug=False):
         T = self.env.day
@@ -96,7 +108,7 @@ class MIPSolver(Solver):
                                 print(
                                     f'-M * (1 - {time_decider}) <= {start_time} - {_from}')
                                 print(
-                                    f'{start_time} - {_to} <= M * (1 - {time_decider})')
+                                    f'{start_time} - {_to} <= M * (1 - {time_decider})\n')
 
                         job_costs.append(
                             duration * self.solver.Sum(time_delta))
@@ -109,7 +121,7 @@ class MIPSolver(Solver):
 
     def solve(self):
 
-        debug = True
+        debug = False
         if debug:
             print('Constraints:')
 
@@ -140,6 +152,13 @@ class MIPSolver(Solver):
             self.cost = 0
             for t in range(len(power_usage)):
                 self.cost += self.price(t) * power_usage[t]
+
+            if debug:
+                print('\n\nSolution:')
+                print('---------------------')
+                print('Objective value =', self.solver.Objective().Value())
+                for var in self.variables:
+                    print(f'{var} = {self.variables[var].solution_value()}')
 
         else:
             raise Exception('The problem does not have an optimal solution.')
