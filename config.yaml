@@ -8,21 +8,31 @@ machines:
 
 step: 15
 
-day: 1500
+# day: 1500
+day: 45
 
 price_list:
   - from: 0
-    to: 375
-    cost: 7.5
-  - from: 375
-    to: 750
-    cost: 10
-  - from: 750
-    to: 1125
-    cost: 2
-  - from: 1125
-    to: 1500
-    cost: 3.5
+    to: 15
+    cost: 20
+  - from: 15
+    to: 30
+    cost: 8
+  - from: 30
+    to: 45
+    cost: 12
+  # - from: 0
+  #   to: 375
+  #   cost: 7.5
+  # - from: 375
+  #   to: 750
+  #   cost: 10
+  # - from: 750
+  #   to: 1125
+  #   cost: 2
+  # - from: 1125
+  #   to: 1500
+  #   cost: 3.5
 
 job_list:
   - id: WM
@@ -59,34 +69,44 @@ job_list:
 building:
   - house: 0
     tasks:
-      - id: WM
-        machine: 6
-        job: 10
-      - id: MW
-        machine: 5
-        job: 16
-      - id: AC
-        machine: 1
-        job: 4
-  - house: 1
-    tasks:
-      - id: WM
-        machine: 2
-        job: 3
-      - id: MW
-        machine: 4
-        job: 11
       - id: AC
         machine: 1
         job: 1
-  - house: 2
+  - house: 1
     tasks:
-      - id: WM
-        machine: 10
-        job: 4
       - id: MW
-        machine: 2
-        job: 5
-      - id: AC
-        machine: 5
-        job: 12
+        machine: 1
+        job: 1
+  # - house: 0
+  #   tasks:
+  #     - id: WM
+  #       machine: 6
+  #       job: 10
+  #     - id: MW
+  #       machine: 5
+  #       job: 16
+  #     - id: AC
+  #       machine: 1
+  #       job: 4
+  # - house: 1
+  #   tasks:
+  #     - id: WM
+  #       machine: 2
+  #       job: 3
+  #     - id: MW
+  #       machine: 4
+  #       job: 11
+  #     - id: AC
+  #       machine: 1
+  #       job: 1
+  # - house: 2
+  #   tasks:
+  #     - id: WM
+  #       machine: 10
+  #       job: 4
+  #     - id: MW
+  #       machine: 2
+  #       job: 5
+  #     - id: AC
+  #       machine: 5
+  #       job: 12

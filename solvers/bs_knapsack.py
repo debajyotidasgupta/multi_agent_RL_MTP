@@ -59,11 +59,14 @@ class BSKnapsackSolver(Solver):
 
         return packed_items
 
-    def check(self, cost_cap):
+    def check(self, cost_cap, debug=False):
         T = self.env.day
         S = deepcopy(self.env.S)
         self.schedule_list = []
         self.cost = 0
+
+        if debug:
+            print(self.price)
 
         for t in range(T):
             for house, machine_id, machine_n in self.knapsack(S, t, cost_cap):
@@ -88,6 +91,8 @@ class BSKnapsackSolver(Solver):
                     for machine in S[house][machine_id]:
                         power_usage += machine.get_power(t)
             self.cost += self.price(t) * power_usage
+            if debug:
+                print(t, power_usage, self.price(t))
 
         return len(self.schedule_list) == self.total_jobs
 
@@ -95,18 +100,18 @@ class BSKnapsackSolver(Solver):
 
         # binary search on per unit time cost
         low = 0
-        high = 1000
+        high = 10**9
 
         EPS = 1
 
         while high - low > EPS:
-            mid = (low + high) / 2
+            mid = (low + high) // 2
             if self.check(mid):
                 high = mid
             else:
                 low = mid + EPS
 
         # if round(low) - low < EPS:
-        #     low = round(low)
+
         print('            OPTIMAL CPUT: ', low)
-        _ = self.check(low)
+        _ = self.check(low, debug=False)

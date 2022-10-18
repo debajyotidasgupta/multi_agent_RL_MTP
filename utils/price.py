@@ -20,9 +20,11 @@ class Price:
         for i, price_data in enumerate(price_list):
             price_data['from'] //= step
             price_data['to'] //= step
+
+            # Cost is mentioned per hour rate
             price_data['cost'] *= step / 60
-            if i > 0:
-                price_data['from'] += 1
+
+            price_data['to'] -= 1
             self.price_list[i] = price_data
 
     def get_price(self, time):

@@ -29,7 +29,7 @@ class Env:
                         name = machine['name']
                         break
 
-                # Addm the machine to the house
+                # Add the machine to the house
                 for i in range(n_m):
                     self.S[house][_id].append(Machine(name, _id, m_counter))
                     m_counter += 1

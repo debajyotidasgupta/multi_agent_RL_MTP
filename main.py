@@ -19,9 +19,9 @@ if __name__ == '__main__':
     env = Env(building, job, machines, day)
 
     solvers = [
-        BSKnapsackSolver,
+        # BSKnapsackSolver,
         # GreedySolver,
-        # MIPSolver,
+        MIPSolver,
     ]
 
     for solver in solvers:
@@ -29,5 +29,5 @@ if __name__ == '__main__':
         solver = solver(env, price)
         solver.solve()
         print(solver)
-        # print(solver.scehdule())
+        print(solver.scehdule())
         solver.visualize()
