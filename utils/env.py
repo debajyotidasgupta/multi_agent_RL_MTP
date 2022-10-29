@@ -4,7 +4,7 @@ from collections import defaultdict
 
 
 class Env:
-    def __init__(self, building, job_list, machines, day):
+    def __init__(self, building, job_list, machines, day, step):
         self.day = day
         self.S = defaultdict(lambda: defaultdict(list))
         self.n_machines = defaultdict(lambda: defaultdict(int))
@@ -22,6 +22,9 @@ class Env:
                 _id = task['id']
                 n_m = task['machine']  # Get the number of machines
                 n_j = task['job']  # Get the number of jobs
+                deadlines = task['deadlines']  # Get the deadlines
+
+                deadlines = list(sorted(deadlines))
 
                 # Find the name of the machine
                 for machine in machines:
@@ -39,7 +42,7 @@ class Env:
                 # [-] Single job cannot be allocated to multiple machines
                 for i in range(n_j):
                     self.S[house][_id][alloc].add_job(
-                        job_list[_id], (house, _id, i))
+                        job_list[_id], deadlines[i] // step, (house, _id, i))
                     self.m_alloc[(house, i)] = self.S[house][_id][alloc].uuid
                     alloc = (alloc + 1) % n_m
 
@@ -50,5 +53,5 @@ class Env:
     def __str__(self):
         return json.dumps(self.S, indent=2, default=vars)
 
-    def reset(self, building, job_list, machines, day):
-        self.__init__(building, job_list, machines, day)
+    def reset(self, building, job_list, machines, day, step):
+        self.__init__(building, job_list, machines, day, step)

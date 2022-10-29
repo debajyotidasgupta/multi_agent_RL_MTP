@@ -17,10 +17,10 @@ class Machine(object):
     def __repr__(self):  # This is for printing
         return self.name
 
-    def add_job(self, job, uuid):  # This is for adding a job to the machine
+    def add_job(self, job, deadline, uuid):  # This is for adding a job to the machine
         for i, elem in enumerate(job):
             duration, power = elem
-            self.jobs.append((duration, power, (*uuid, i)))
+            self.jobs.append((duration, power, deadline, (*uuid, i)))
             self.remaining_jobs += 1
 
     def get_jobs(self):  # This is for getting the jobs of the machine

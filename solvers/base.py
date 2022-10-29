@@ -44,16 +44,14 @@ class Solver:
     def scehdule(self):
         output = f'\n\
             SCHEDULE:\n\
-                ┌──────────────────┬─────────────────┬─────────────────┬─────────────────┐\n\
-                │    JOB ID        │ MACHINE ID      │ START TIME      │ END TIME        │\n\
-                ├──────────────────┼─────────────────┼─────────────────┼─────────────────┤\
-        '
-        for schedule in self.schedule_list:
-            output += f'\n\
-                │ {str(schedule.job_id):<16} │ {schedule.machine_id:>15} │ {schedule.start_time:>15} │ {schedule.end_time:>15} │\
-            '
-        output += f'\n\
-                └──────────────────┴─────────────────┴─────────────────┴─────────────────┘\n\
+                ┌──────────────────┬─────────────────┬─────────────────┬─────────────────┬─────────────────┐\n\
+                │    SCHEDULE ID   │ MACHINE ID      │ START TIME      │ END TIME        │ JOB ID          │\n\
+                ├──────────────────┼─────────────────┼─────────────────┼─────────────────┼─────────────────┤\n'
+        for _id, schedule in enumerate(self.schedule_list):
+            output += f'\
+                | {_id:>16} │ {schedule.machine_id:>15} │ {schedule.start_time:>15} │ {schedule.end_time:>15} │ {("(" + ",".join(map(str,schedule.job_id)) + ")"):>15} │\n'
+        output += f'\
+                └──────────────────┴─────────────────┴─────────────────┴─────────────────┴─────────────────┘\n\
         '
         return output
 

@@ -1,3 +1,4 @@
+from random import randint
 from copy import deepcopy
 from .base import Solver, Schedule
 from ortools.algorithms import pywrapknapsack_solver
@@ -21,6 +22,7 @@ class BSKnapsackSolver(Solver):
         values = []
         weights = [[]]
         job_id = [[]]
+        LIM = 10**-9
 
         for house in S:
             for machine_id in S[house]:
@@ -36,17 +38,27 @@ class BSKnapsackSolver(Solver):
 
                     # Get the job
                     job = machine.peek()
-                    duration, power, _ = job
+                    duration, power, deadline, _ = job
 
-                    if T + duration > self.env.day:
+                    if T + duration > deadline:  # self.env.day:
                         continue
 
-                    values.append(1)
+                    values.append(
+                        int(1 / max(LIM, (deadline - T) ** 4) * (10 ** 5)))
                     weights[0].append(toInt(power))
                     job_id[0].append((house, machine_id, i))
 
         if power_cap < 0:
             return []
+
+        # if len(values) > 1:
+        #     for i in range(200):
+        #         x = randint(0, len(values)-2)
+        #         y = randint(x+1, len(values)-1)
+
+        #         values[x], values[y] = values[y], values[x]
+        #         weights[0][x], weights[0][y] = weights[0][y], weights[0][x]
+        #         job_id[0][x], job_id[0][y] = job_id[0][y], job_id[0][x]
 
         capacity = [toInt(power_cap)]
         packed_items = []
@@ -73,7 +85,7 @@ class BSKnapsackSolver(Solver):
                 machine = S[house][machine_id][machine_n]
 
                 job = machine.pop()
-                duration, power, job_id = job
+                duration, power, _, job_id = job
 
                 # Schedule the job
                 self.schedule_list.append(
@@ -102,16 +114,12 @@ class BSKnapsackSolver(Solver):
         low = 0
         high = 10**9
 
-        EPS = 1
-
-        while high - low > EPS:
+        while low < high:
             mid = (low + high) // 2
             if self.check(mid):
                 high = mid
             else:
-                low = mid + EPS
-
-        # if round(low) - low < EPS:
+                low = mid + 1
 
         print('            OPTIMAL CPUT: ', low)
         _ = self.check(low, debug=False)

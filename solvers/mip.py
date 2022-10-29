@@ -18,14 +18,15 @@ class MIPSolver(Solver):
             for machine_id in self.env.S[house]:
                 for machine in self.env.S[house][machine_id]:
                     for job in machine.jobs:
-                        duration, _, job_id = job
+                        duration, _, deadline, job_id = job
                         _, _, n_job, n_op = job_id
                         start_time = f'S_{house}_{machine_id}_{n_job}_{n_op}'
                         self.variables[start_time] = self.solver.IntVar(
-                            0, T-duration, start_time)
+                            0, min(T, deadline)-duration, start_time)
 
                         if debug:
-                            print(f'0 <= {start_time} <= {T-duration}')
+                            print(
+                                f'0 <= {start_time} <= {min(T, deadline)-duration}')
 
                         time_decider_list = []
                         debug_time_decider_list = []
@@ -64,8 +65,8 @@ class MIPSolver(Solver):
                             job_i = machine.jobs[i]
                             job_j = machine.jobs[j]
 
-                            duration_i, _, job_id_i = job_i
-                            duration_j, _, job_id_j = job_j
+                            duration_i, _, _, job_id_i = job_i
+                            duration_j, _, _, job_id_j = job_j
 
                             _, _, n_job_i, n_op_i = job_id_i
                             _, _, n_job_j, n_op_j = job_id_j
@@ -84,7 +85,7 @@ class MIPSolver(Solver):
                             #     1 - self.variables[end_time_j] + self.variables[start_time_i]))
 
                     for job in machine.jobs:
-                        duration, _, job_id = job
+                        duration, _, _, job_id = job
                         _, _, n_job, n_op = job_id
                         start_time = f'S_{house}_{machine_id}_{n_job}_{n_op}'
 
@@ -136,7 +137,7 @@ class MIPSolver(Solver):
                 for machine_id in self.env.S[house]:
                     for machine in self.env.S[house][machine_id]:
                         for job in machine.jobs:
-                            duration, power, job_id = job
+                            duration, power, _, job_id = job
                             _, _, n_job, n_op = job_id
 
                             start_time_variable = f'S_{house}_{machine_id}_{n_job}_{n_op}'

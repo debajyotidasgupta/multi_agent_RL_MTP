@@ -16,16 +16,16 @@ if __name__ == '__main__':
 
     price = Price(price_list, step)
     job = Job(job_list, step)
-    env = Env(building, job, machines, day)
+    env = Env(building, job, machines, day, step)
 
     solvers = [
+        GreedySolver,
         BSKnapsackSolver,
-        # GreedySolver,
-        # MIPSolver,
+        MIPSolver,
     ]
 
     for solver in solvers:
-        env.reset(building, job, machines, day)
+        env.reset(building, job, machines, day, step)
         solver = solver(env, price)
         solver.solve()
         print(solver)

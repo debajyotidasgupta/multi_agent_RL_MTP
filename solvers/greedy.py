@@ -24,7 +24,7 @@ class GreedySolver(Solver):
 
                                 # Get the job
                                 job = machine.pop()
-                                duration, power, job_id = job
+                                duration, power, _, job_id = job
 
                                 # Schedule the job
                                 self.schedule_list.append(
