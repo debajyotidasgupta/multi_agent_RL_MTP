@@ -7,6 +7,7 @@ class Env:
     def __init__(self, building, job_list, machines, day, step):
         self.day = day
         self.S = defaultdict(lambda: defaultdict(list))
+        self.n_houses = len(building)
         self.n_machines = defaultdict(lambda: defaultdict(int))
         self.n_jobs = defaultdict(lambda: defaultdict(int))
         self.m_alloc = defaultdict(lambda: defaultdict(int))

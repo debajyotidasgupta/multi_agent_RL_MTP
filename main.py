@@ -22,6 +22,7 @@ if __name__ == '__main__':
         GreedySolver,
         BSKnapsackSolver,
         MIPSolver,
+        ModelSolver,
     ]
 
     for solver in solvers:
